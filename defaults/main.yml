@@ -1,0 +1,14 @@
+---
+classyllama_updatenotifier_emails: "example@classyllama.com example2@classyllama.com"
+classyllama_updatenotifier_username: "www-prod"
+classyllama_updatenotifier_group: "www-prod"
+classyllama_updatenotifier_dir: "/home/{{ classyllama_updatenotifier_username }}/updatenotifier"
+classyllama_updatenotifier_checkredis: 1
+classyllama_updatenotifier_checkmysql: 1
+classyllama_updatenotifier_checkelastic: 1
+classyllama_updatenotifier_redis_host: localhost
+classyllama_updatenotifier_redis_port: 6379
+classyllama_updatenotifier_elastic_host: localhost
+classyllama_updatenotifier_elastic_port: 9200
+classyllama_updatenotifier_elastic_user: "{{ es_api_basic_auth_username | default('elastic') }}"
+classyllama_updatenotifier_elastic_pass: "{{ es_api_basic_auth_password | default('changeme') }}"

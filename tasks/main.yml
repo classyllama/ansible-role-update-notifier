@@ -1,0 +1,31 @@
+---
+- name: UpdateNotifier | Prepare working directory
+  file:
+    dest: "{{ classyllama_updatenotifier_dir }}"
+    owner: "{{ classyllama_updatenotifier_username }}"
+    group: "{{ classyllama_updatenotifier_group }}"
+    mode: "750"
+    state: "directory"
+
+- name: UpdateNotifier | Upload configuration file
+  template:
+    src: updatenotifier.json.j2
+    dest: "{{ classyllama_updatenotifier_dir }}/updatenotifier.json"
+    mode: 0640
+
+- name: UpdateNotifier | Upload script
+  copy:
+    src: "{{ item }}"
+    dest: "{{ classyllama_updatenotifier_dir }}/{{ item }}"
+    owner: "{{ classyllama_updatenotifier_username }}"
+    group: "{{ classyllama_updatenotifier_group }}"
+    mode: 0750
+  with_items:
+    - updatenotifier.sh
+
+- name: UpdateNotifier | Adding cron entry 
+  ansible.builtin.cron:
+    name: "updatenotifier"
+    minute: "0"
+    hour: "5"
+    job: "cd {{ classyllama_updatenotifier_dir }}; bash updatenotifier.sh >> updatenotifier.log"
