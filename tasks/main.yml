@@ -11,7 +11,7 @@
   template:
     src: updatenotifier.json.j2
     dest: "{{ classyllama_updatenotifier_dir }}/updatenotifier.json"
-    mode: 0640
+    mode: 0600
 
 - name: UpdateNotifier | Upload script
   copy:

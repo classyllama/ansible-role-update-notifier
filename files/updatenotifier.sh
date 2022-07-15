@@ -42,7 +42,7 @@ done
 # MYSQL
 if [ ${CHECK_MYSQL} == "1" ]; then
   MYSQL_RUNNING_VERSION=$(mysql -e 'show global variables like "version"' -sN |awk {' print $2 '} |awk -F "-" {' print $1 '})
-  MYSQL_INSTALLED_VERSION=$(rpm -qa |grep -i percona-server-server |awk -F "-" {' print $5 '})
+  MYSQL_INSTALLED_VERSION=$(rpm -qa |grep -i percona-server-server |awk -F "-" {' print $4 '})
   echo "`date +"%D %T"` Running MySQL version: ${MYSQL_RUNNING_VERSION}"
   echo "`date +"%D %T"` Installed MySQL version: ${MYSQL_INSTALLED_VERSION}"
 
