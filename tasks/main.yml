@@ -1,6 +1,6 @@
 ---
 - name: UpdateNotifier | Prepare working directory
-  file:
+  ansible.builtin.file:
     dest: "{{ classyllama_updatenotifier_dir }}"
     owner: "{{ classyllama_updatenotifier_username }}"
     group: "{{ classyllama_updatenotifier_group }}"
@@ -8,13 +8,15 @@
     state: "directory"
 
 - name: UpdateNotifier | Upload configuration file
-  template:
+  ansible.builtin.template:
     src: updatenotifier.json.j2
     dest: "{{ classyllama_updatenotifier_dir }}/updatenotifier.json"
+    owner: "{{ classyllama_updatenotifier_username }}"
+    group: "{{ classyllama_updatenotifier_group }}"
     mode: 0600
 
 - name: UpdateNotifier | Upload script
-  copy:
+  ansible.builtin.copy:
     src: "{{ item }}"
     dest: "{{ classyllama_updatenotifier_dir }}/{{ item }}"
     owner: "{{ classyllama_updatenotifier_username }}"
@@ -29,3 +31,4 @@
     minute: "0"
     hour: "5"
     job: "cd {{ classyllama_updatenotifier_dir }}; bash updatenotifier.sh >> updatenotifier.log"
+    user: "{{ classyllama_updatenotifier_username }}"
